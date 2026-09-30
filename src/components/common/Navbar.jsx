@@ -191,11 +191,13 @@ export const Navbar = () => {
           {currentUser ? (
             <div className="p-3 rounded-xl border-2 border-black bg-white flex items-center justify-between">
               <div 
-                className="flex items-center gap-2 cursor-pointer"
+                className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
                 onClick={() => {
                   if (currentUser.role === "student") {
                     setMyPassesModalOpen(true);
                     setMobileMenuOpen(false);
+                  } else if (currentUser.role === "admin") {
+                    handleNavigate("admin");
                   }
                 }}
               >
@@ -209,6 +211,11 @@ export const Navbar = () => {
                   {currentUser.role === "student" && (
                     <div className="text-[10px] font-bold text-[#0066CC] underline">
                       Manage Passes ({getUserRegistrations().length})
+                    </div>
+                  )}
+                  {currentUser.role === "admin" && (
+                    <div className="text-[10px] font-bold text-[#FF5A5F] underline">
+                      Open Admin Suite →
                     </div>
                   )}
                 </div>

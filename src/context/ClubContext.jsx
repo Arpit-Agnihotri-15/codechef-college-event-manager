@@ -276,7 +276,7 @@ export const ClubProvider = ({ children }) => {
 
   const loginAdmin = (adminId, password) => {
     const validIds = ["codechef_admin", "admin@codechef.org", "admin"];
-    const validPasswords = ["admin@2026", "admin123", "campus2026"];
+    const validPasswords = ["admin@2026", "codechef2026", "admin123", "campus2026"];
 
     const cleanId = (adminId || "").trim().toLowerCase();
     const cleanPw = (password || "").trim();

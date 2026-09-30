@@ -13,6 +13,15 @@
 
 ---
 
+## 🔑 Quick Access Credentials
+
+| Role | Username / ID | Password | Access Capabilities |
+| :--- | :--- | :--- | :--- |
+| **Admin Portal** | `codechef_admin` (or `admin`) | `admin@2026` (or `codechef2026`) | Full Event CRUD, Attendee Roster, 1-Click CSV Export, Check-in status, Real-time Analytics deep dives |
+| **Student Portal** | Any email (e.g. `aditya@college.edu`) | Any password / Auto-fill | 1-Click Event Registration, Digital Pass with QR Code, Track & Manage Reserved Seats |
+
+---
+
 ## 👨‍🍳 What We Cooked (The Main Course)
 
 Unlike typical cookie-cutter AI templates with soft purple gradients and generic stock imagery, this application is crafted from the ground up as a **real, living college tech club portal**. It features bold graphic geometry, hard drop shadows, dot-matrix patterns, hazard stripes, real student data structures (Roll numbers, branches, On-Duty OD letters, CodeChef handles), and playful interactivity.
@@ -207,6 +216,14 @@ http://localhost:5173/
 npm run build
 ```
 Production assets are generated in the `dist/` directory, ready to be deployed to Vercel, Netlify, or GitHub Pages.
+
+### 5. Deployment with Vercel
+The project is configured with `vercel.json` for seamless deployment with SPA rewrites:
+```bash
+npx vercel --prod
+```
+- Live Production URL: [https://codechef-college-event-manager.vercel.app](https://codechef-college-event-manager.vercel.app)
+- Continuous deployment is enabled: every push to the `main` branch on GitHub triggers an automatic production build and deployment on Vercel.
 
 ---
 
