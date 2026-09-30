@@ -287,39 +287,49 @@ export const CLUB_STATS = [
 
 export const CLUB_LEADERSHIP = [
   {
-    name: "Dr. K. S. Venkatesh",
-    role: "Faculty Advisor",
-    department: "Associate Professor, Dept. of CSE",
+    role: "Chapter Leadership",
+    emoji: "👑",
+    division: "Executive Council",
+    scope: "Chapter Vision, College Approvals & Department Liaison",
     color: "bg-[#FFE600]",
-    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80"
+    badgeColor: "bg-black text-[#FFE600]",
+    openings: "1 Co-Lead Opening"
   },
   {
-    name: "Aarav Sharma",
-    role: "Chapter President",
-    department: "Final Year B.Tech CSE",
-    color: "bg-[#00F59B]",
-    avatar: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=400&q=80"
-  },
-  {
-    name: "Ananya Iyer",
-    role: "CP Wing Lead",
-    department: "3rd Year B.Tech CSE (5★ CodeChef)",
+    role: "Competitive Programming",
+    emoji: "🎯",
+    division: "Algorithm Wing",
+    scope: "Contest Problem Setting, Speed Drills & Editorial Writing",
     color: "bg-[#FF5A5F]",
-    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80"
+    badgeColor: "bg-black text-[#00F59B]",
+    openings: "3 Volunteer Openings"
   },
   {
-    name: "Devansh Nair",
-    role: "Technical Lead",
-    department: "3rd Year B.Tech IT",
+    role: "Technical & Web Development",
+    emoji: "💻",
+    division: "Engineering Wing",
+    scope: "Portal Development, Systems Maintenance & Open Source",
     color: "bg-[#00D2FF]",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80"
+    badgeColor: "bg-black text-white",
+    openings: "2 Developer Openings"
   },
   {
-    name: "Rhea Thomas",
-    role: "Events & Ops Lead",
-    department: "3rd Year B.Tech CSE",
+    role: "Events & Campus Operations",
+    emoji: "📢",
+    division: "Logistics Wing",
+    scope: "Hackathon Management, On-Duty Letters & Hall Coordination",
+    color: "bg-[#00F59B]",
+    badgeColor: "bg-black text-[#FFE600]",
+    openings: "4 Coordinator Openings"
+  },
+  {
+    role: "Design, Media & Branding",
+    emoji: "🎨",
+    division: "Creative Wing",
+    scope: "Event Posters, Motion Graphics, Badges & Social Outreaches",
     color: "bg-[#B388FF]",
-    avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=400&q=80"
+    badgeColor: "bg-black text-[#00D2FF]",
+    openings: "2 Creator Openings"
   }
 ];
 

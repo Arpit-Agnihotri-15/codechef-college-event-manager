@@ -13,6 +13,7 @@ import { AdminDashboard } from "./components/admin/AdminDashboard";
 import { RegistrationModal } from "./components/student/RegistrationModal";
 import { TicketPassModal } from "./components/student/TicketPassModal";
 import { EventDetailsModal } from "./components/student/EventDetailsModal";
+import { AuthModal } from "./components/common/AuthModal";
 
 const AppContent = () => {
   const { currentView } = useClub();
@@ -39,6 +40,7 @@ const AppContent = () => {
       <RegistrationModal />
       <TicketPassModal />
       <EventDetailsModal />
+      <AuthModal />
 
       {/* Floating Retro Toasts */}
       <ToastContainer />

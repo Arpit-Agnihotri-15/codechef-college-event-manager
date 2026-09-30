@@ -15,7 +15,13 @@ import {
 } from "lucide-react";
 
 export const RegistrationModal = () => {
-  const { registerModalEvent, setRegisterModalEvent, registerStudent } = useClub();
+  const { 
+    registerModalEvent, 
+    setRegisterModalEvent, 
+    registerStudent, 
+    currentUser, 
+    openAuthModal 
+  } = useClub();
 
   const [formData, setFormData] = useState({
     studentName: "",
@@ -29,6 +35,20 @@ export const RegistrationModal = () => {
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  React.useEffect(() => {
+    if (registerModalEvent && currentUser && currentUser.role === "student") {
+      setFormData({
+        studentName: currentUser.studentName || "",
+        rollNumber: currentUser.rollNumber || "",
+        email: currentUser.email || "",
+        collegeYear: currentUser.collegeYear || "B.Tech CSE • 3rd Year",
+        phone: currentUser.phone || "",
+        codingHandle: currentUser.codingHandle || ""
+      });
+      setErrors({});
+    }
+  }, [registerModalEvent, currentUser]);
 
   if (!registerModalEvent) return null;
 
@@ -163,6 +183,27 @@ export const RegistrationModal = () => {
             </span>
           </div>
         </div>
+
+        {/* Student Profile Status / Quick Fill Notice */}
+        {currentUser?.role === "student" ? (
+          <div className="p-3 rounded-xl bg-[#00F59B]/20 border-2 border-black flex items-center justify-between text-xs font-bold text-black">
+            <span className="flex items-center gap-1.5">
+              <Sparkles className="w-4 h-4 text-black stroke-[2.5]" />
+              <span>Signed in as <strong>{currentUser.studentName}</strong> ({currentUser.rollNumber}) — Form Auto-Filled!</span>
+            </span>
+          </div>
+        ) : (
+          <div className="p-2.5 rounded-xl bg-[#00D2FF]/15 border-2 border-black flex items-center justify-between text-xs font-bold text-black">
+            <span>Have a student profile? Auto-fill with 1 click:</span>
+            <button
+              type="button"
+              onClick={() => openAuthModal("student")}
+              className="px-2.5 py-1 bg-[#00D2FF] text-black text-[11px] font-black uppercase rounded-lg border border-black shadow-[1px_1px_0px_0px_#000] cursor-pointer"
+            >
+              Sign In
+            </button>
+          </div>
+        )}
 
         {/* Form Fields */}
         <form onSubmit={handleSubmit} className="space-y-3.5" noValidate>

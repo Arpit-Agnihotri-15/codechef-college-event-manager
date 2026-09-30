@@ -49,6 +49,13 @@ Unlike typical cookie-cutter AI templates with soft purple gradients and generic
   - **Scannable QR Code** (powered by `qrcode.react`) for rapid verification at the venue entry desk.
   - **Print / Save Pass** option for saving tickets offline or printing.
 
+- 🔐 **Dual Authentication System (Student & Admin)**:
+  - **Student Sign In**: Save student profile (Name, University Roll No, Email, Department & Year, WhatsApp, CodeChef handle) to **auto-fill event registrations** and view delegate passes. Includes 1-click **⚡ Auto-Fill Demo** button.
+  - **Admin Security Gate**: Protected by a unique Chapter Coordinator ID and Password. If accessed unauthenticated, a security gate locks the control suite until verified.
+    - **Official Admin ID**: `codechef_admin` (or `admin@codechef.org`)
+    - **Admin Password**: `admin@2026` (or `admin123`)
+    - Includes 1-click **⚡ Auto-Fill Demo Credentials** button for seamless review.
+
 - 🏆 **Past Hackathons & Hall of Fame (`hackathons`)**:
   - Archive of past chapter editions (**DevHacks '25**, **CodeClash 2.0**, **InnoSprint Winter '24**).
   - Showcase of winning teams, projects, cash prizes, and participant stats.
@@ -57,17 +64,25 @@ Unlike typical cookie-cutter AI templates with soft purple gradients and generic
   - Curated milestone roadmaps for the 4 core wings.
   - **Clickable milestone checklists** that save progress and trigger confetti upon completing milestones.
 
-- 👥 **Core Team & Recruitment (`team`)**:
-  - Meet the Faculty Advisor and Student Executive Committee.
+- 👥 **Chapter Working Divisions & Recruitment (`team`)**:
+  - Highlights the 5 functional campus divisions using expressive **emoji avatars** (`👑 Leadership`, `🎯 Competitive Programming`, `💻 Technical & Systems`, `📢 Events & Operations`, `🎨 Design & Media`) instead of placeholder photos.
+  - Detailed scopes of work and active volunteer opening counters.
   - **Interactive Volunteer Application Form**: Form for aspiring juniors to apply for chapter volunteer and lead positions.
 
 - 🧲 **Movable Sticker Board Playground**:
   - Interactive retro canvas with draggable badges (`5★ CODER`, `HACKER`, `OD APPROVED`, `PIZZA & CODE`, etc.).
   - Ability to drag stickers anywhere on screen, create custom stickers, and reset positions.
 
+- 🧭 **Improved Directory Footer**:
+  - Every button and link is categorized with explicit uppercase headings, context tags, and direct utility actions (`View Digital Ticket Badge`, `Student Sign In / Register`, `Admin Sign In Portal`).
+
 ---
 
 ### 2. 🛡️ Admin & Chapter Coordinator Dashboard (`admin`)
+
+- 🔒 **Protected by Unique ID & Password**:
+  - Secured with unique Chapter Admin credentials (`codechef_admin` / `admin@2026`).
+  - Active admin session badge with instant logout capability.
 
 - 📊 **Executive Overview Metrics**:
   - Total events active, confirmed registrations, upcoming dates, and overall campus hall capacity utilization.
@@ -113,6 +128,7 @@ CODECHEF_Entrance/
 │   │   │   ├── AdminRegistrations.jsx
 │   │   │   └── EventFormModal.jsx
 │   │   ├── common/             # Global Reusable Components
+│   │   │   ├── AuthModal.jsx
 │   │   │   ├── Footer.jsx
 │   │   │   ├── MarqueeStrip.jsx
 │   │   │   ├── Modal.jsx

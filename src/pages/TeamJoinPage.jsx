@@ -40,46 +40,56 @@ export const TeamJoinPage = () => {
       <div className="space-y-3">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-[#B388FF] border-2 border-black text-xs font-black uppercase tracking-wider shadow-[3px_3px_0px_0px_#000]">
           <Users className="w-4 h-4 stroke-[2.5]" />
-          <span>Chapter Leadership & Recruitment</span>
+          <span>Chapter Divisions & Semester Recruitment</span>
         </div>
-        <h1 className="text-3xl sm:text-5xl font-black text-black tracking-tight">
-          CORE TEAM & JOIN US
+        <h1 className="text-3xl sm:text-5xl font-black text-black tracking-tight uppercase">
+          Chapter Divisions & Join the Team
         </h1>
         <p className="text-base font-bold text-black/80 max-w-3xl leading-relaxed">
-          Meet the student organizers and faculty mentors running CodeChef Campus Chapter, and apply to join our executive committee for the upcoming academic semester!
+          The CodeChef Campus Chapter operates across 5 specialized divisions led by student volunteers. Explore the divisions below and submit your application to join the core team!
         </p>
       </div>
 
-      {/* Team Roster Grid */}
+      {/* Chapter Divisions Grid with Emojis */}
       <div className="space-y-6">
-        <h2 className="text-2xl font-black text-black uppercase tracking-tight flex items-center gap-2">
-          <span>// Executive Committee & Faculty</span>
-        </h2>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <h2 className="text-2xl font-black text-black uppercase tracking-tight flex items-center gap-2">
+            <span>// Chapter Working Divisions</span>
+          </h2>
+          <span className="text-xs font-black uppercase bg-[#00F59B] px-2.5 py-1 rounded-lg border-2 border-black shadow-[2px_2px_0px_0px_#000]">
+            ⚡ 12 Openings Across Wings
+          </span>
+        </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-          {CLUB_LEADERSHIP.map((member, i) => (
+          {CLUB_LEADERSHIP.map((division, i) => (
             <div
               key={i}
-              className="brutal-card rounded-2xl bg-white p-5 flex flex-col items-center text-center space-y-3"
+              className="brutal-card rounded-2xl bg-white p-5 flex flex-col justify-between space-y-4 hover:-translate-y-1 transition-transform"
             >
-              <div className={`w-24 h-24 rounded-2xl overflow-hidden border-[3px] border-black shadow-[4px_4px_0px_0px_#000] ${member.color}`}>
-                <img
-                  src={member.avatar}
-                  alt={member.name}
-                  className="w-full h-full object-cover"
-                />
+              <div className="space-y-3 text-center flex flex-col items-center">
+                <div className={`w-20 h-20 rounded-2xl border-[3px] border-black shadow-[4px_4px_0px_0px_#000] ${division.color} flex items-center justify-center text-4xl select-none`}>
+                  {division.emoji}
+                </div>
+
+                <div className="space-y-1">
+                  <div className="text-[11px] font-black uppercase text-black/60 tracking-wider">
+                    {division.division}
+                  </div>
+                  <h4 className="text-base font-black text-black leading-tight">
+                    {division.role}
+                  </h4>
+                </div>
+
+                <p className="text-xs font-bold text-black/75 leading-relaxed text-left border-t-2 border-dashed border-black/20 pt-2 w-full">
+                  {division.scope}
+                </p>
               </div>
 
-              <div className="space-y-1">
-                <h4 className="text-base font-black text-black">
-                  {member.name}
-                </h4>
-                <div className="text-xs font-black uppercase text-black bg-[#FFE600] px-2 py-0.5 rounded border border-black inline-block">
-                  {member.role}
-                </div>
-                <div className="text-[11px] font-bold text-black/70 mt-1">
-                  {member.department}
-                </div>
+              <div className="text-center pt-2">
+                <span className={`text-[10px] font-black uppercase px-2 py-1 rounded-lg border border-black inline-block shadow-[1px_1px_0px_0px_#000] ${division.badgeColor}`}>
+                  {division.openings}
+                </span>
               </div>
             </div>
           ))}

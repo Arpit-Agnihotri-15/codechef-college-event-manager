@@ -30,6 +30,21 @@ export const ClubProvider = ({ children }) => {
   // Active View / Landing Page: 'home' | 'events' | 'hackathons' | 'wings' | 'team' | 'admin'
   const [currentView, setCurrentView] = useState("home");
 
+  // User Authentication State (Admin or Student)
+  const [currentUser, setCurrentUser] = useState(() => {
+    try {
+      const saved = localStorage.getItem("codechef_neo_current_user");
+      if (saved) return JSON.parse(saved);
+    } catch (e) {
+      console.error(e);
+    }
+    return null;
+  });
+
+  // Auth Modal State
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [authModalTab, setAuthModalTab] = useState("student"); // 'student' | 'admin'
+
   // Modals
   const [registerModalEvent, setRegisterModalEvent] = useState(null);
   const [detailsModalEvent, setDetailsModalEvent] = useState(null);
@@ -51,6 +66,16 @@ export const ClubProvider = ({ children }) => {
       localStorage.setItem("codechef_neo_registrations", JSON.stringify(registrations));
     } catch (e) {}
   }, [registrations]);
+
+  useEffect(() => {
+    try {
+      if (currentUser) {
+        localStorage.setItem("codechef_neo_current_user", JSON.stringify(currentUser));
+      } else {
+        localStorage.removeItem("codechef_neo_current_user");
+      }
+    } catch (e) {}
+  }, [currentUser]);
 
   const addToast = (title, message, type = "info") => {
     const id = Date.now().toString() + Math.random().toString(36).substring(2, 5);
@@ -208,6 +233,71 @@ export const ClubProvider = ({ children }) => {
     addToast("Demo Reset", "Default bright neo-brutalist events & registrations restored.", "info");
   };
 
+  // Authentication Methods
+  const openAuthModal = (tab = "student") => {
+    setAuthModalTab(tab);
+    setAuthModalOpen(true);
+  };
+
+  const closeAuthModal = () => {
+    setAuthModalOpen(false);
+  };
+
+  const loginAdmin = (adminId, password) => {
+    const validIds = ["codechef_admin", "admin@codechef.org", "admin"];
+    const validPasswords = ["admin@2026", "admin123", "campus2026"];
+
+    const cleanId = (adminId || "").trim().toLowerCase();
+    const cleanPw = (password || "").trim();
+
+    if (validIds.includes(cleanId) && validPasswords.includes(cleanPw)) {
+      const adminUser = {
+        role: "admin",
+        id: "codechef_admin",
+        name: "Chapter Lead (Admin)",
+        email: "admin@codechef.org",
+        badge: "Admin Access"
+      };
+      setCurrentUser(adminUser);
+      setAuthModalOpen(false);
+      addToast("Admin Verified", "Welcome, Chapter Executive Lead. Full access granted.", "success");
+      return { success: true };
+    } else {
+      return { 
+        success: false, 
+        message: "Invalid Admin ID or Password. Try ID: codechef_admin | Pass: admin@2026" 
+      };
+    }
+  };
+
+  const loginStudent = (studentData) => {
+    if (!studentData.studentName?.trim() || !studentData.email?.trim()) {
+      return { success: false, message: "Student Name and Email are required." };
+    }
+    const studentUser = {
+      role: "student",
+      studentName: studentData.studentName.trim(),
+      rollNumber: studentData.rollNumber ? studentData.rollNumber.trim().toUpperCase() : "N/A",
+      email: studentData.email.trim(),
+      collegeYear: studentData.collegeYear ? studentData.collegeYear.trim() : "B.Tech CSE • 3rd Year",
+      phone: studentData.phone ? studentData.phone.trim() : "",
+      codingHandle: studentData.codingHandle ? studentData.codingHandle.trim() : ""
+    };
+    setCurrentUser(studentUser);
+    setAuthModalOpen(false);
+    addToast("Student Signed In", `Welcome back, ${studentUser.studentName}!`, "success");
+    return { success: true };
+  };
+
+  const logout = () => {
+    const prevRole = currentUser?.role;
+    setCurrentUser(null);
+    if (currentView === "admin") {
+      setCurrentView("home");
+    }
+    addToast("Signed Out", prevRole === "admin" ? "Admin session ended." : "Student logged out.", "info");
+  };
+
   return (
     <ClubContext.Provider
       value={{
@@ -215,6 +305,17 @@ export const ClubProvider = ({ children }) => {
         registrations,
         currentView,
         setCurrentView,
+        currentUser,
+        setCurrentUser,
+        authModalOpen,
+        setAuthModalOpen,
+        authModalTab,
+        setAuthModalTab,
+        openAuthModal,
+        closeAuthModal,
+        loginAdmin,
+        loginStudent,
+        logout,
         registerModalEvent,
         setRegisterModalEvent,
         detailsModalEvent,
