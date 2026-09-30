@@ -21,7 +21,9 @@ export const Navbar = () => {
     events, 
     currentUser, 
     logout, 
-    openAuthModal 
+    openAuthModal,
+    setMyPassesModalOpen,
+    getUserRegistrations 
   } = useClub();
   
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -120,16 +122,21 @@ export const Navbar = () => {
             {/* 2. Logged In as Student: Just Name + Logout Button */}
             {currentUser && currentUser.role === "student" && (
               <div className="flex items-center gap-2 sm:gap-3">
-                <div 
-                  onClick={() => openAuthModal("student")}
-                  className="flex items-center gap-2 px-3 py-1.5 rounded-xl border-2 border-black bg-[#00D2FF]/20 shadow-[2px_2px_0px_0px_#000] cursor-pointer"
-                  title="Signed in student"
+                <button 
+                  onClick={() => setMyPassesModalOpen(true)}
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-xl border-2 border-black bg-[#00D2FF]/20 hover:bg-[#00D2FF]/40 shadow-[2px_2px_0px_0px_#000] cursor-pointer transition-all"
+                  title="Click to view and manage your registered event passes"
                 >
                   <GraduationCap className="w-4 h-4 text-black stroke-[2.5]" />
                   <span className="text-xs font-black text-black max-w-[120px] sm:max-w-none truncate">
                     {currentUser.studentName}
                   </span>
-                </div>
+                  {getUserRegistrations().length > 0 && (
+                    <span className="px-1.5 py-0.2 rounded-md bg-black text-[#00D2FF] font-black text-[10px]">
+                      {getUserRegistrations().length}
+                    </span>
+                  )}
+                </button>
 
                 <button
                   onClick={logout}
@@ -183,14 +190,27 @@ export const Navbar = () => {
           {/* User Status Bar in Mobile Menu */}
           {currentUser ? (
             <div className="p-3 rounded-xl border-2 border-black bg-white flex items-center justify-between">
-              <div className="flex items-center gap-2">
+              <div 
+                className="flex items-center gap-2 cursor-pointer"
+                onClick={() => {
+                  if (currentUser.role === "student") {
+                    setMyPassesModalOpen(true);
+                    setMobileMenuOpen(false);
+                  }
+                }}
+              >
                 <span className="text-xl">
                   {currentUser.role === "admin" ? "🛡️" : "🎓"}
                 </span>
                 <div>
                   <div className="text-xs font-black text-black">
-                    {currentUser.role === "admin" ? "Admin" : currentUser.studentName}
+                    {currentUser.role === "admin" ? "Chapter Admin" : currentUser.studentName}
                   </div>
+                  {currentUser.role === "student" && (
+                    <div className="text-[10px] font-bold text-[#0066CC] underline">
+                      Manage Passes ({getUserRegistrations().length})
+                    </div>
+                  )}
                 </div>
               </div>
               <button

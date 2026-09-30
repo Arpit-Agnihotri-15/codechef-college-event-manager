@@ -10,11 +10,19 @@ import {
   ListOrdered,
   MapPin,
   Clock,
-  ArrowRight
+  ArrowRight,
+  Ticket
 } from "lucide-react";
 
 export const EventsPage = () => {
-  const { events, setDetailsModalEvent, setRegisterModalEvent } = useClub();
+  const { 
+    events, 
+    setDetailsModalEvent, 
+    setRegisterModalEvent,
+    currentUser,
+    getUserRegistrations,
+    setMyPassesModalOpen
+  } = useClub();
 
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -83,6 +91,35 @@ export const EventsPage = () => {
           Filter by category, search by topic, or switch to the Interactive Timeline Roadmap. All events are open for free student delegate registration.
         </p>
       </div>
+
+      {/* Student Active Registrations Tracking Banner */}
+      {currentUser && currentUser.role === "student" && (
+        <div className="p-4 sm:p-5 rounded-2xl bg-[#00D2FF]/20 border-[3px] border-black shadow-[5px_5px_0px_0px_#000] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-[#00D2FF] border-2 border-black flex items-center justify-center font-black shadow-[2px_2px_0px_0px_#000] shrink-0">
+              <Ticket className="w-5 h-5 text-black stroke-[2.5]" />
+            </div>
+            <div>
+              <div className="text-xs sm:text-sm font-black text-black">
+                Student Portal: {currentUser.studentName} ({currentUser.rollNumber})
+              </div>
+              <div className="text-xs font-bold text-black/75">
+                {getUserRegistrations().length > 0 
+                  ? `You have reserved seats for ${getUserRegistrations().length} event(s). Track ticket status & venue check-ins.`
+                  : "You have not reserved seats for upcoming events yet. Pick an event below to reserve your seat!"}
+              </div>
+            </div>
+          </div>
+
+          <button
+            onClick={() => setMyPassesModalOpen(true)}
+            className="self-start sm:self-auto brutal-btn inline-flex items-center gap-1.5 px-4 py-2 bg-[#FFE600] text-black font-black text-xs uppercase rounded-xl shrink-0"
+          >
+            <Ticket className="w-4 h-4 stroke-[2.5]" />
+            <span>Manage My Passes ({getUserRegistrations().length})</span>
+          </button>
+        </div>
+      )}
 
       {/* Search and Filters Control Center */}
       <div className="p-5 rounded-2xl bg-white border-4 border-black shadow-[6px_6px_0px_0px_#000] space-y-4">

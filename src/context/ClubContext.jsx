@@ -50,6 +50,7 @@ export const ClubProvider = ({ children }) => {
   const [detailsModalEvent, setDetailsModalEvent] = useState(null);
   const [ticketModalData, setTicketModalData] = useState(null);
   const [adminEventModalData, setAdminEventModalData] = useState(null);
+  const [myPassesModalOpen, setMyPassesModalOpen] = useState(false);
 
   // Toasts
   const [toasts, setToasts] = useState([]);
@@ -167,6 +168,22 @@ export const ClubProvider = ({ children }) => {
       return null;
     }
 
+    // Check for duplicate registration for the same event
+    const userEmail = (formData.email || "").toLowerCase().trim();
+    const userRoll = (formData.rollNumber || "").toUpperCase().trim();
+    const existing = registrations.find(
+      (r) =>
+        r.eventId === event.id &&
+        ((userEmail && (r.email || "").toLowerCase().trim() === userEmail) ||
+          (userRoll && userRoll !== "N/A" && (r.rollNumber || "").toUpperCase().trim() === userRoll))
+    );
+
+    if (existing) {
+      addToast("Already Registered", `You already have a confirmed seat for "${event.title}". Showing your pass.`, "info");
+      setTicketModalData(existing);
+      return existing;
+    }
+
     const prefix = event.category.split(" ")[0].substring(0, 3).toUpperCase();
     const randNum = Math.floor(1000 + Math.random() * 9000);
     const ticketCode = `CC-${prefix}-${randNum}`;
@@ -207,6 +224,20 @@ export const ClubProvider = ({ children }) => {
     setTicketModalData(newReg);
     addToast("Registration Confirmed!", `Boom! Delegate badge generated for ${newReg.studentName}.`, "success");
     return newReg;
+  };
+
+  const getUserRegistrations = () => {
+    if (!currentUser || currentUser.role !== "student") return [];
+    const userEmail = (currentUser.email || "").toLowerCase().trim();
+    const userRoll = (currentUser.rollNumber || "").toUpperCase().trim();
+    return registrations.filter((r) => {
+      const regEmail = (r.email || "").toLowerCase().trim();
+      const regRoll = (r.rollNumber || "").toUpperCase().trim();
+      return (
+        (userEmail && regEmail === userEmail) ||
+        (userRoll && userRoll !== "N/A" && regRoll === userRoll)
+      );
+    });
   };
 
   const deleteRegistration = (regId) => {
@@ -324,6 +355,9 @@ export const ClubProvider = ({ children }) => {
         setTicketModalData,
         adminEventModalData,
         setAdminEventModalData,
+        myPassesModalOpen,
+        setMyPassesModalOpen,
+        getUserRegistrations,
         addEvent,
         updateEvent,
         deleteEvent,

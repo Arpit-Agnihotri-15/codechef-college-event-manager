@@ -14,9 +14,28 @@ import {
 } from "lucide-react";
 
 export const EventDetailsModal = () => {
-  const { detailsModalEvent, setDetailsModalEvent, setRegisterModalEvent } = useClub();
+  const { 
+    detailsModalEvent, 
+    setDetailsModalEvent, 
+    setRegisterModalEvent,
+    currentUser,
+    registrations,
+    setTicketModalData
+  } = useClub();
 
   if (!detailsModalEvent) return null;
+
+  const userEmail = (currentUser?.email || "").toLowerCase().trim();
+  const userRoll = (currentUser?.rollNumber || "").toUpperCase().trim();
+  const existingReg = currentUser && currentUser.role === "student"
+    ? registrations.find(
+        (r) =>
+          r.eventId === detailsModalEvent.id &&
+          ((userEmail && (r.email || "").toLowerCase().trim() === userEmail) ||
+            (userRoll && userRoll !== "N/A" && (r.rollNumber || "").toUpperCase().trim() === userRoll))
+      )
+    : null;
+  const isRegistered = Boolean(existingReg);
 
   const dateObj = new Date(detailsModalEvent.date);
   const formattedDate = dateObj.toLocaleDateString("en-US", {
@@ -36,7 +55,11 @@ export const EventDetailsModal = () => {
   const handleRegisterClick = () => {
     const target = detailsModalEvent;
     setDetailsModalEvent(null);
-    setRegisterModalEvent(target);
+    if (isRegistered) {
+      setTicketModalData(existingReg);
+    } else {
+      setRegisterModalEvent(target);
+    }
   };
 
   return (
@@ -154,18 +177,28 @@ export const EventDetailsModal = () => {
               Close
             </button>
 
-            <button
-              disabled={isFull}
-              onClick={handleRegisterClick}
-              className={`brutal-btn flex items-center gap-1.5 px-5 py-2.5 rounded-xl text-xs font-black uppercase transition-all ${
-                isFull
-                  ? "bg-slate-300 text-slate-500 cursor-not-allowed border-black"
-                  : "bg-[#FFE600] text-black shadow-[3px_3px_0px_0px_#000]"
-              }`}
-            >
-              <span>{isFull ? "Housefull" : "Register Now"}</span>
-              {!isFull && <ArrowRight className="w-3.5 h-3.5 stroke-[3]" />}
-            </button>
+            {isRegistered ? (
+              <button
+                onClick={handleRegisterClick}
+                className="brutal-btn flex items-center gap-1.5 px-5 py-2.5 rounded-xl text-xs font-black uppercase transition-all bg-[#00F59B] text-black shadow-[3px_3px_0px_0px_#000]"
+              >
+                <span>View My Ticket Pass</span>
+                <ArrowRight className="w-3.5 h-3.5 stroke-[3]" />
+              </button>
+            ) : (
+              <button
+                disabled={isFull}
+                onClick={handleRegisterClick}
+                className={`brutal-btn flex items-center gap-1.5 px-5 py-2.5 rounded-xl text-xs font-black uppercase transition-all ${
+                  isFull
+                    ? "bg-slate-300 text-slate-500 cursor-not-allowed border-black"
+                    : "bg-[#FFE600] text-black shadow-[3px_3px_0px_0px_#000]"
+                }`}
+              >
+                <span>{isFull ? "Housefull" : "Register Now"}</span>
+                {!isFull && <ArrowRight className="w-3.5 h-3.5 stroke-[3]" />}
+              </button>
+            )}
           </div>
         </div>
 

@@ -47,7 +47,14 @@ Unlike typical cookie-cutter AI templates with soft purple gradients and generic
 - 🎫 **Digital Delegate Badge & Pass**:
   - Automatically generates an event pass complete with unique ticket code (`CC-CP-XXXX`), attendee info, date, and venue.
   - **Scannable QR Code** (powered by `qrcode.react`) for rapid verification at the venue entry desk.
-  - **Print / Save Pass** option for saving tickets offline or printing.
+  - **Print / Save Pass** option with centered print styles for saving tickets offline or printing.
+
+- 🗂️ **Student Passes Tracker & Management (`StudentPassesModal`)**:
+  - Signed-in students can view all their active registrations in one place.
+  - Live status tracking (`Confirmed`, `Checked In / OD Verified ✅`, `Waitlisted`).
+  - 1-click **View / Scan QR Badge** access.
+  - Ability to **Cancel Booking**, automatically freeing up the seat for other students.
+  - Event cards and event details dynamically reflect when a student has already joined an event.
 
 - 🔐 **Dual Authentication System (Student & Admin)**:
   - **Student Sign In**: Save student profile (Name, University Roll No, Email, Department & Year, WhatsApp, CodeChef handle) to **auto-fill event registrations** and view delegate passes. Includes 1-click **⚡ Auto-Fill Demo** button.
@@ -143,6 +150,7 @@ CODECHEF_Entrance/
 │   │       ├── FeaturedEvent.jsx
 │   │       ├── HeroSection.jsx
 │   │       ├── RegistrationModal.jsx
+│   │       ├── StudentPassesModal.jsx
 │   │       └── TicketPassModal.jsx
 │   ├── context/
 │   │   └── ClubContext.jsx     # Central State & localStorage persistence

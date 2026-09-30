@@ -11,7 +11,25 @@ import {
 } from "lucide-react";
 
 export const EventCard = ({ event }) => {
-  const { setRegisterModalEvent, setDetailsModalEvent } = useClub();
+  const { 
+    setRegisterModalEvent, 
+    setDetailsModalEvent,
+    registrations,
+    currentUser,
+    setTicketModalData
+  } = useClub();
+
+  const userEmail = (currentUser?.email || "").toLowerCase().trim();
+  const userRoll = (currentUser?.rollNumber || "").toUpperCase().trim();
+  const registeredTicket = currentUser && currentUser.role === "student"
+    ? registrations.find(
+        (r) =>
+          r.eventId === event.id &&
+          ((userEmail && (r.email || "").toLowerCase().trim() === userEmail) ||
+            (userRoll && userRoll !== "N/A" && (r.rollNumber || "").toUpperCase().trim() === userRoll))
+      )
+    : null;
+  const isRegistered = Boolean(registeredTicket);
 
   const dateObj = new Date(event.date);
   const monthStr = dateObj.toLocaleString("en-US", { month: "short" }).toUpperCase();
@@ -138,18 +156,28 @@ export const EventCard = ({ event }) => {
             Details
           </button>
 
-          <button
-            disabled={isFull}
-            onClick={() => setRegisterModalEvent(event)}
-            className={`brutal-btn flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl text-xs font-black uppercase transition-all ${
-              isFull
-                ? "bg-slate-300 text-slate-500 cursor-not-allowed border-black"
-                : "bg-[#FFE600] hover:bg-[#FFD700] text-black"
-            }`}
-          >
-            <span>{isFull ? "Full" : "Register"}</span>
-            {!isFull && <ArrowRight className="w-3.5 h-3.5 stroke-[3]" />}
-          </button>
+          {isRegistered ? (
+            <button
+              onClick={() => setTicketModalData(registeredTicket)}
+              className="brutal-btn flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl text-xs font-black uppercase bg-[#00F59B] hover:bg-[#00e08c] text-black shadow-[2px_2px_0px_0px_#000]"
+            >
+              <span>View Pass</span>
+              <ArrowRight className="w-3.5 h-3.5 stroke-[3]" />
+            </button>
+          ) : (
+            <button
+              disabled={isFull}
+              onClick={() => setRegisterModalEvent(event)}
+              className={`brutal-btn flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl text-xs font-black uppercase transition-all ${
+                isFull
+                  ? "bg-slate-300 text-slate-500 cursor-not-allowed border-black"
+                  : "bg-[#FFE600] hover:bg-[#FFD700] text-black"
+              }`}
+            >
+              <span>{isFull ? "Full" : "Register"}</span>
+              {!isFull && <ArrowRight className="w-3.5 h-3.5 stroke-[3]" />}
+            </button>
+          )}
         </div>
 
       </div>
