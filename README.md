@@ -3,9 +3,11 @@
 [![React](https://img.shields.io/badge/React-19.0.0-61DAFB?logo=react&logoColor=black&style=for-the-badge)](https://react.dev/)
 [![Vite](https://img.shields.io/badge/Vite-8.3.1-646CFF?logo=vite&logoColor=white&style=for-the-badge)](https://vitejs.dev/)
 [![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-v4-06B6D4?logo=tailwindcss&logoColor=white&style=for-the-badge)](https://tailwindcss.com/)
+[![Vercel Deployment](https://img.shields.io/badge/Vercel-Live%20Demo-000000?logo=vercel&logoColor=white&style=for-the-badge)](https://codechef-college-event-manager.vercel.app)
 [![Style](https://img.shields.io/badge/Design-Neo--Brutalist-FFE600?style=for-the-badge)](https://en.wikipedia.org/wiki/Neubrutalism)
 [![Status](https://img.shields.io/badge/Build-Passing-00F59B?style=for-the-badge)]()
 
+> 🌐 **Live Website**: [https://codechef-college-event-manager.vercel.app](https://codechef-college-event-manager.vercel.app)  
 > 🚀 **Time to Serve Your Dish!**  
 > An authentic, high-energy, responsive web application engineered for the **CodeChef Campus Chapter**. Built with **React 19**, **Vite**, and **Tailwind CSS v4**, styled in a **Neo-Brutalist / Memphis** aesthetic with solid bright colors, hard black drop shadows, interactive patterns, a movable sticker playground, multiple distinct landing pages, and a full-featured admin management suite.
 
