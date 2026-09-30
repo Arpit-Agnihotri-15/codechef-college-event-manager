@@ -1,0 +1,148 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background-color: #FFFDF8;
+    color: #111827;
+    font-family: 'Space Grotesk', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    overflow-x: hidden;
+    /* Interactive Dot Grid Pattern */
+    background-image: radial-gradient(#000000 1.2px, transparent 1.2px);
+    background-size: 24px 24px;
+  }
+
+  /* Custom neo-brutalist scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #FFE600;
+    border-left: 2px solid #000;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #000;
+    border: 2px solid #FFE600;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #FF5A5F;
+  }
+}
+
+/* Neo-Brutalist Hard Drop Shadows */
+.brutal-shadow-sm {
+  box-shadow: 3px 3px 0px 0px #000000;
+}
+.brutal-shadow {
+  box-shadow: 5px 5px 0px 0px #000000;
+}
+.brutal-shadow-lg {
+  box-shadow: 8px 8px 0px 0px #000000;
+}
+.brutal-shadow-xl {
+  box-shadow: 12px 12px 0px 0px #000000;
+}
+
+/* Tactile Clickable Lift Effect */
+.brutal-btn {
+  border: 3px solid #000;
+  box-shadow: 4px 4px 0px 0px #000;
+  transition: all 0.12s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.brutal-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px 0px #000;
+}
+.brutal-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px 0px #000;
+}
+
+/* Card Lift */
+.brutal-card {
+  border: 3px solid #000;
+  box-shadow: 6px 6px 0px 0px #000;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.brutal-card:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 9px 9px 0px 0px #000;
+}
+
+/* Retro Caution Stripe Banner */
+.stripe-caution {
+  background: repeating-linear-gradient(
+    -45deg,
+    #000,
+    #000 12px,
+    #FFE600 12px,
+    #FFE600 24px
+  );
+}
+
+.stripe-cyan {
+  background: repeating-linear-gradient(
+    -45deg,
+    #000,
+    #000 10px,
+    #00D2FF 10px,
+    #00D2FF 20px
+  );
+}
+
+.stripe-coral {
+  background: repeating-linear-gradient(
+    -45deg,
+    #000,
+    #000 10px,
+    #FF5A5F 10px,
+    #FF5A5F 20px
+  );
+}
+
+/* Grid graph paper pattern */
+.bg-grid-pattern {
+  background-size: 20px 20px;
+  background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.08) 1px, transparent 1px);
+}
+
+/* Checkerboard pattern */
+.bg-checker {
+  background-image: 
+    linear-gradient(45deg, #000 25%, transparent 25%), 
+    linear-gradient(-45deg, #000 25%, transparent 25%), 
+    linear-gradient(45deg, transparent 75%, #000 75%), 
+    linear-gradient(-45deg, transparent 75%, #000 75%);
+  background-size: 16px 16px;
+  background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
+}
+
+/* Infinite Marquee Animation */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: 200%;
+  animation: marquee 18s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Draggable Cursor */
+.draggable-item {
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+}
+.draggable-item:active {
+  cursor: grabbing;
+}
